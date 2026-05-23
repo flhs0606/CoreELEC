@@ -3,14 +3,21 @@
 
 PKG_NAME="media_modules-aml"
 PKG_VERSION="8c6526d44f8221b8b74a1a948f739c08f5240bca"
-PKG_SHA256="6b5a13335e4a34c125b995b14206f47eece08a17223b3e3f95a07a239ab01f98"
+PKG_SHA256=""
 PKG_LICENSE="GPL"
 PKG_SITE="https://coreelec.org"
-PKG_URL="https://github.com/avdvplus/media_modules-aml/archive/$PKG_VERSION.tar.gz"
+PKG_URL=""
 PKG_DEPENDS_TARGET="toolchain linux"
 PKG_NEED_UNPACK="$LINUX_DEPENDS"
 PKG_LONGDESC="$PKG_NAME: Linux driver"
 PKG_TOOLCHAIN="manual"
+
+unpack() {
+  rm -rf "${PKG_BUILD}"
+  mkdir -p "${PKG_BUILD}"
+  cp -R /home/mephis/Project/CoreELEC/media-modules/. "${PKG_BUILD}/"
+  chmod -R u+w "${PKG_BUILD}"
+}
 
 pre_make_target() {
   unset LDFLAGS

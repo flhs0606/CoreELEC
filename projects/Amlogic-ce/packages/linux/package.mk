@@ -6,6 +6,8 @@
 PKG_NAME="linux"
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.kernel.org"
+PKG_URL=""
+PKG_SHA256=""
 PKG_DEPENDS_HOST="ccache:host rsync:host openssl:host"
 PKG_DEPENDS_TARGET="toolchain linux:host kmod:host xz:host keyutils aml-dtbtools:host aml-dtbtools $KERNEL_EXTRA_DEPENDS_TARGET"
 PKG_NEED_UNPACK="$LINUX_DEPENDS $(get_pkg_directory initramfs) $(get_pkg_variable initramfs PKG_NEED_UNPACK)"
@@ -18,14 +20,19 @@ PKG_PATCH_DIRS="$LINUX"
 case "$LINUX" in
   amlogic-4.9)
     PKG_VERSION="64af5c8a6098da2f5536f27cdbd1a612b377034e"
-    PKG_SHA256="375a788a533c3699079038553870c79080df666d1e9a4d3567ef1a0449d9e31e"
-    PKG_URL="https://github.com/avdvplus/linux-amlogic/archive/$PKG_VERSION.tar.gz"
     PKG_SOURCE_NAME="linux-$LINUX-$PKG_VERSION.tar.gz"
     PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET aml-dtbtools:host"
     PKG_BUILD_PERF="no"
     PKG_GIT_BRANCH="amlogic-4.9-20"
     ;;
 esac
+
+unpack() {
+  rm -rf "${PKG_BUILD}"
+  mkdir -p "${PKG_BUILD}"
+  cp -R /home/mephis/Project/CoreELEC/linux-amlogic/. "${PKG_BUILD}/"
+  chmod -R u+w "${PKG_BUILD}"
+}
 
 PKG_KERNEL_CFG_FILE=$(kernel_config_path) || die
 

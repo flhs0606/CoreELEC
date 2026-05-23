@@ -3,12 +3,20 @@
 
 PKG_NAME="CoreELEC-settings"
 PKG_VERSION="800ab3ea2d1cddf31d16f66d13dcaeb5f17720e5"
-PKG_SHA256="a033a6ddec4ce56019a6bc886e4a66eb595ebc0d35ac8c6c1f6bace82ef31b51"
+PKG_SHA256=""
 PKG_LICENSE="GPL"
 PKG_SITE="https://coreelec.org"
-PKG_URL="https://github.com/avdvplus/service.coreelec.settings/archive/${PKG_VERSION}.tar.gz"
+PKG_URL=""
+PKG_SKIP_PATCHES="yes"
 PKG_DEPENDS_TARGET="toolchain Python3 connman pygobject dbus-python"
 PKG_LONGDESC="CoreELEC-settings: is a settings dialog for CoreELEC"
+
+unpack() {
+  rm -rf "${PKG_BUILD}"
+  mkdir -p "${PKG_BUILD}"
+  cp -R /home/mephis/Project/CoreELEC/service-settings/. "${PKG_BUILD}/"
+  chmod -R u+w "${PKG_BUILD}"
+}
 
 PKG_MAKE_OPTS_TARGET="DISTRONAME=${DISTRONAME} ADDON_VERSION=${ADDON_VERSION} ROOT_PASSWORD=${ROOT_PASSWORD}"
 

@@ -5,15 +5,23 @@
 
 PKG_NAME="kodi"
 PKG_VERSION="52d06e9f77456da040fbaf6c7fe251e0c91465f4"
-PKG_SHA256="11ec750695e6ac404aac861f7b1181640452de80517f31120ac3d2f0d545b5ca"
+PKG_SHA256=""
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.kodi.tv"
-PKG_URL="https://github.com/avdvplus/xbmc/archive/${PKG_VERSION}.tar.gz"
+PKG_URL=""
+PKG_SKIP_PATCHES="yes"
 PKG_DEPENDS_TARGET="toolchain JsonSchemaBuilder:host TexturePacker:host Python3 zlib systemd lzo pcre swig:host libass curl fontconfig fribidi tinyxml tinyxml2 libjpeg-turbo freetype libcdio taglib libxml2 libxslt rapidjson sqlite ffmpeg crossguid libfmt lirc libfstrcmp flatbuffers:host flatbuffers libudfread spdlog obu_util libdovi"
 PKG_DEPENDS_UNPACK="commons-lang3 commons-text groovy"
 PKG_DEPENDS_HOST="toolchain"
 PKG_LONGDESC="A free and open source cross-platform media player."
 PKG_BUILD_FLAGS="+speed"
+
+unpack() {
+  rm -rf "${PKG_BUILD}"
+  mkdir -p "${PKG_BUILD}"
+  cp -R /home/mephis/Project/CoreELEC/kodi-xbmc/. "${PKG_BUILD}/"
+  chmod -R u+w "${PKG_BUILD}"
+}
 
 post_unpack() {
   if [ -f ${DISTRO_DIR}/${DISTRO}/splash/${DEVICE}/splash-1080.png ]; then
