@@ -1903,6 +1903,16 @@ show_timestamp_diff() {
   fi
 }
 
+# Copy a local source tree into the package's build dir. Used by package.mk
+# unpack() overrides that bypass the GitHub tarball flow.
+unpack_local() {
+  local src="$1"
+  rm -rf "${PKG_BUILD}"
+  mkdir -p "${PKG_BUILD}"
+  cp -R "${src}/." "${PKG_BUILD}/"
+  chmod -R u+w "${PKG_BUILD}"
+}
+
 # Use distribution functions if any
 if [ -f "distributions/$DISTRO/config/functions" ]; then
   . distributions/$DISTRO/config/functions

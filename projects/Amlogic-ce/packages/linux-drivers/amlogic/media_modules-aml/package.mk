@@ -13,10 +13,7 @@ PKG_LONGDESC="$PKG_NAME: Linux driver"
 PKG_TOOLCHAIN="manual"
 
 unpack() {
-  rm -rf "${PKG_BUILD}"
-  mkdir -p "${PKG_BUILD}"
-  cp -R /home/mephis/Project/CoreELEC/media-modules/. "${PKG_BUILD}/"
-  chmod -R u+w "${PKG_BUILD}"
+  unpack_local /home/mephis/Project/CoreELEC/media-modules
 }
 
 pre_make_target() {

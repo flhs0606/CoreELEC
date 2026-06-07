@@ -17,10 +17,7 @@ PKG_LONGDESC="A free and open source cross-platform media player."
 PKG_BUILD_FLAGS="+speed"
 
 unpack() {
-  rm -rf "${PKG_BUILD}"
-  mkdir -p "${PKG_BUILD}"
-  cp -R /home/mephis/Project/CoreELEC/kodi-xbmc/. "${PKG_BUILD}/"
-  chmod -R u+w "${PKG_BUILD}"
+  unpack_local /home/mephis/Project/CoreELEC/kodi-xbmc
 }
 
 post_unpack() {

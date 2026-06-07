@@ -28,10 +28,7 @@ case "$LINUX" in
 esac
 
 unpack() {
-  rm -rf "${PKG_BUILD}"
-  mkdir -p "${PKG_BUILD}"
-  cp -R /home/mephis/Project/CoreELEC/linux-amlogic/. "${PKG_BUILD}/"
-  chmod -R u+w "${PKG_BUILD}"
+  unpack_local /home/mephis/Project/CoreELEC/linux-amlogic
 }
 
 PKG_KERNEL_CFG_FILE=$(kernel_config_path) || die

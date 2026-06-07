@@ -21,8 +21,5 @@ PKG_CMAKE_OPTS_TARGET="-DKODI_SOURCE_DIR=/home/mephis/Project/CoreELEC/kodi-xbmc
 
 # 使用本地源码
 unpack() {
-  rm -rf "${PKG_BUILD}"
-  mkdir -p "${PKG_BUILD}"
-  cp -R /home/mephis/Project/CoreELEC/vfs.stream.fast/. "${PKG_BUILD}/"
-  chmod -R u+w "${PKG_BUILD}"
+  unpack_local /home/mephis/Project/CoreELEC/vfs.stream.fast
 }

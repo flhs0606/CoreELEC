@@ -12,10 +12,7 @@ PKG_DEPENDS_TARGET="toolchain Python3 connman pygobject dbus-python"
 PKG_LONGDESC="CoreELEC-settings: is a settings dialog for CoreELEC"
 
 unpack() {
-  rm -rf "${PKG_BUILD}"
-  mkdir -p "${PKG_BUILD}"
-  cp -R /home/mephis/Project/CoreELEC/service-settings/. "${PKG_BUILD}/"
-  chmod -R u+w "${PKG_BUILD}"
+  unpack_local /home/mephis/Project/CoreELEC/service-settings
 }
 
 PKG_MAKE_OPTS_TARGET="DISTRONAME=${DISTRONAME} ADDON_VERSION=${ADDON_VERSION} ROOT_PASSWORD=${ROOT_PASSWORD}"
