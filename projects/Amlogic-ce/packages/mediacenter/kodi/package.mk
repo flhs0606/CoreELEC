@@ -4,16 +4,21 @@
 # Copyright (C) 2020-present Team CoreELEC (https://coreelec.tv)
 
 PKG_NAME="kodi"
-PKG_VERSION="e0614d7a6713369bbcfe42152223f1cdaec3dbf1"
-PKG_SHA256="a4dc38e5e4b1582991dea7e8031cd4e4d5722855173b99a6d98c61a4b371d3b5"
+PKG_VERSION="21.3-Omega-f10"
+PKG_SHA256=""
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.kodi.tv"
-PKG_URL="https://github.com/avdvplus/xbmc/archive/${PKG_VERSION}.tar.gz"
+PKG_URL=""
+PKG_SKIP_PATCHES="yes"
 PKG_DEPENDS_TARGET="toolchain JsonSchemaBuilder:host TexturePacker:host Python3 zlib systemd lzo pcre swig:host libass curl fontconfig fribidi tinyxml tinyxml2 libjpeg-turbo freetype libcdio taglib libxml2 libxslt rapidjson sqlite ffmpeg crossguid libfmt lirc libfstrcmp flatbuffers:host flatbuffers libudfread spdlog obu_util libdovi hdmi-recover debug-capture dtb-autoupdate kodi-fs-maintain jre-zulu-fix inputstream.ffmpegdirect inputstream.adaptive kodi-addon-sidedata kodi-addon-tinyppi"
 PKG_DEPENDS_UNPACK="commons-lang3 commons-text groovy"
 PKG_DEPENDS_HOST="toolchain"
 PKG_LONGDESC="A free and open source cross-platform media player."
 PKG_BUILD_FLAGS="+speed"
+
+unpack() {
+  unpack_local /home/mephis/Project/CoreELEC/kodi-xbmc
+}
 
 post_unpack() {
   if [ -f ${DISTRO_DIR}/${DISTRO}/splash/${DEVICE}/splash-1080.png ]; then

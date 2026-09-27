@@ -6,9 +6,9 @@
 # short project description
   DESCRIPTION="CoreELEC is a fast and user-friendly Kodi Entertainment Center distribution."
 
-BUILDER_NAME="avdvplus"
-ORIGIN_URL="https://github.com/avdvplus/CoreELEC"
-BUG_REPORT_URL="https://github.com/avdvplus/CoreELEC"
+BUILDER_NAME="mephis"
+ORIGIN_URL="https://github.com/flhs0606/CoreELEC"
+BUG_REPORT_URL="https://github.com/flhs0606/CoreELEC"
 
 ### USER INTERFACE SETTINGS ###
 
@@ -271,3 +271,4 @@ BUG_REPORT_URL="https://github.com/avdvplus/CoreELEC"
 # e.g. ADDITIONAL_PACKAGES="PACKAGE1 PACKAGE2"
   ADDITIONAL_PACKAGES="u-boot-script dtc CoreELEC-Debug-Scripts inject_bl301 ceemmc
                        nfs-utils dtb-xml megatools htop binutils"
+
