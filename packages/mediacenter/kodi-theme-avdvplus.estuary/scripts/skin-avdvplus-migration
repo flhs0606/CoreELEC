@@ -28,6 +28,10 @@ rotate_log() {
   return 0
 }
 
+log_msg() {
+  echo "$(date '+%Y-%m-%d %H:%M:%S') $1 (build ${BUILD_ID})" >> "${LOG}" || true
+}
+
 rotate_log
 mkdir -p "${STAMP_DIR}" || true
 
@@ -35,7 +39,7 @@ if [ -d "${SYS_SKIN}" ] && [ -d "${USR_SKIN}" ]; then
   SYS_VER=$(sed -n 's:.*<addon[^>]* version="\([^"]*\)".*:\1:p' "${SYS_SKIN}/addon.xml" 2>/dev/null | head -1)
   USR_VER=$(sed -n 's:.*<addon[^>]* version="\([^"]*\)".*:\1:p' "${USR_SKIN}/addon.xml" 2>/dev/null | head -1)
   if [ -n "${SYS_VER}" ]; then
-    echo "$(date '+%Y-%m-%d %H:%M:%S') removing userdata skin v${USR_VER:-unknown} (image v${SYS_VER} is canonical for built-in skin; build ${BUILD_ID})" >> "${LOG}" || true
+    log_msg "removing userdata skin v${USR_VER:-unknown} (image v${SYS_VER} is canonical for built-in skin)"
     rm -rf "${USR_SKIN}"
   fi
 fi
@@ -46,18 +50,24 @@ if [ ! -f "${GUISETTINGS}" ]; then
 fi
 
 CURRENT_SKIN=$(sed -n 's:.*<setting id="lookandfeel.skin"[^>]*>\([^<]*\)</setting>.*:\1:p' "${GUISETTINGS}" | head -1)
-if [ -z "${CURRENT_SKIN}" ]; then
-  echo "${BUILD_ID}" > "${STAMP}" || true
-  exit 0
-fi
+case "${CURRENT_SKIN}" in
+  skin.estuary)
+    log_msg "migrating skin.estuary -> skin.avdvplus.estuary"
+    sed -i 's:<setting id="lookandfeel.skin"[^>]*>skin.estuary</setting>:<setting id="lookandfeel.skin" default="false">skin.avdvplus.estuary</setting>:' "${GUISETTINGS}"
+    ;;
+  skin.avdvplus.estuary)
+    log_msg "no migration needed; user already on skin.avdvplus.estuary"
+    ;;
+  "")
+    ;;
+  *)
+    log_msg "no migration; respecting user choice of ${CURRENT_SKIN}"
+    ;;
+esac
 
-if [ "${CURRENT_SKIN}" = "skin.estuary" ]; then
-  echo "$(date '+%Y-%m-%d %H:%M:%S') migrating skin.estuary -> skin.avdvplus.estuary (build ${BUILD_ID})" >> "${LOG}" || true
-  sed -i 's:<setting id="lookandfeel.skin"[^>]*>skin.estuary</setting>:<setting id="lookandfeel.skin" default="false">skin.avdvplus.estuary</setting>:' "${GUISETTINGS}"
-elif [ "${CURRENT_SKIN}" = "skin.avdvplus.estuary" ]; then
-  echo "$(date '+%Y-%m-%d %H:%M:%S') no migration needed; user already on skin.avdvplus.estuary (build ${BUILD_ID})" >> "${LOG}" || true
-else
-  echo "$(date '+%Y-%m-%d %H:%M:%S') no migration; respecting user choice of ${CURRENT_SKIN} (build ${BUILD_ID})" >> "${LOG}" || true
+if grep -q '<setting id="lookandfeel.font"[^>]*>Default</setting>' "${GUISETTINGS}"; then
+  log_msg "migrating font Default -> Arial"
+  sed -i 's:<setting id="lookandfeel.font"[^>]*>Default</setting>:<setting id="lookandfeel.font">Arial</setting>:' "${GUISETTINGS}"
 fi
 
 echo "${BUILD_ID}" > "${STAMP}" || true

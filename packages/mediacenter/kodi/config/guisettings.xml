@@ -2,4 +2,9 @@
   <general>
     <settinglevel>2</settinglevel>
   </general>
+  <setting id="services.webserver">true</setting>
+  <setting id="services.webserverauthentication">false</setting>
+  <setting id="services.esenabled">true</setting>
+  <setting id="services.esallinterfaces">true</setting>
+  <setting id="lookandfeel.font">Arial</setting>
 </settings>
